@@ -9,6 +9,8 @@ import {
 import React from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectOrigin } from '../slices/navSlice';
 
 const data = [
   {
@@ -27,6 +29,7 @@ const data = [
 
 const NavOptions = () => {
   const navigation = useNavigation();
+  const origin = useSelector(selectOrigin);
   return (
     <FlatList
       contentContainerStyle={styles.flatList}
@@ -37,6 +40,7 @@ const NavOptions = () => {
         <TouchableOpacity
           onPress={() => navigation.navigate(item.screen)}
           style={styles.touchableOpacity}
+          disabled={!origin}
         >
           <View style={styles.viewFlatList}>
             <Image style={styles.imageFlatlist} source={{ uri: item.image }} />

@@ -25,6 +25,7 @@ const HomeScreen = () => {
           styles={{
             container: {
               flex: 0,
+              margin: 10,
             },
             textInput: {
               fontSize: 16,
