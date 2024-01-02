@@ -1,10 +1,18 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import { GOOGLE_MAPS_APIKEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useDispatch } from 'react-redux';
 import { setDestination } from '../slices/navSlice';
 import { useNavigation } from '@react-navigation/native';
+import NavFavourites from '../components/NavFavourites';
+import { Icon } from 'react-native-elements';
 
 const NavigateCard = () => {
   const dispactch = useDispatch();
@@ -39,6 +47,32 @@ const NavigateCard = () => {
             debounce={400}
           />
         </View>
+        <NavFavourites />
+      </View>
+      <View style={styles.viewIcons}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('RideOptionsCard')}
+          style={styles.touchable}
+        >
+          <Icon
+            style={styles.icon}
+            name="car"
+            type="font-awesome"
+            color="white"
+            size={16}
+          />
+          <Text style={styles.textRides}>Rides</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.touchable2}>
+          <Icon
+            style={styles.icon}
+            name="fast-food-outline"
+            type="ionicon"
+            color="black"
+            size={16}
+          />
+          <Text style={styles.textEats}>Eats</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -76,5 +110,40 @@ const styles = StyleSheet.create({
       paddingHorizontal: 20,
       paddingBottom: 0,
     },
+  },
+  touchable: {
+    flexDirection: 'row',
+    backgroundColor: 'black',
+    width: 80,
+    borderRadius: 60,
+    padding: 4,
+    justifyContent: 'center',
+  },
+  touchable2: {
+    flexDirection: 'row',
+    backgroundColor: '#E5E7E9',
+    width: 80,
+    borderRadius: 60,
+    padding: 4,
+    justifyContent: 'center',
+    borderColor: 'gray',
+    borderWidth: 1,
+  },
+  textRides: {
+    textAlign: 'center',
+    color: 'white',
+  },
+  textEats: {
+    textAlign: 'center',
+    color: 'black',
+  },
+  icon: {
+    margin: 3,
+  },
+  viewIcons: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 'auto',
+    marginBottom: 3,
   },
 });

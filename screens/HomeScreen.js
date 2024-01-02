@@ -5,6 +5,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import { GOOGLE_MAPS_APIKEY } from '@env';
 import { useDispatch } from 'react-redux';
 import { setDestination, setOrigin } from '../slices/navSlice';
+import NavFavourites from '../components/NavFavourites';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -20,37 +21,40 @@ const HomeScreen = () => {
         <View style={styles.navOptions}>
           <NavOptions />
         </View>
-        <GooglePlacesAutocomplete
-          placeholder="Where from?"
-          styles={{
-            container: {
-              flex: 0,
-              margin: 10,
-            },
-            textInput: {
-              fontSize: 16,
-            },
-          }}
-          onPress={(data, details = null) => {
-            dispatch(
-              setOrigin({
-                location: details.geometry.location,
-                description: data.description,
-              }),
-            );
-            dispatch(setDestination(null));
-          }}
-          fetchDetails={true}
-          returnKeyType={'search'}
-          enablePoweredByContainer={false}
-          minLength={2}
-          query={{
-            key: GOOGLE_MAPS_APIKEY,
-            language: 'es',
-          }}
-          nearbyPlacesAPI="GooglePlacesSearch"
-          debounce={400}
-        />
+        <View style={styles.viewGoogle}>
+          <GooglePlacesAutocomplete
+            placeholder="Where from?"
+            styles={{
+              container: {
+                flex: 0,
+                margin: 10,
+              },
+              textInput: {
+                fontSize: 16,
+              },
+            }}
+            onPress={(data, details = null) => {
+              dispatch(
+                setOrigin({
+                  location: details.geometry.location,
+                  description: data.description,
+                }),
+              );
+              dispatch(setDestination(null));
+            }}
+            fetchDetails={true}
+            returnKeyType={'search'}
+            enablePoweredByContainer={false}
+            minLength={2}
+            query={{
+              key: GOOGLE_MAPS_APIKEY,
+              language: 'es',
+            }}
+            nearbyPlacesAPI="GooglePlacesSearch"
+            debounce={400}
+          />
+          <NavFavourites />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -74,4 +78,5 @@ const styles = StyleSheet.create({
   navOptions: {
     alignItems: 'center',
   },
+  viewGoogle: {},
 });

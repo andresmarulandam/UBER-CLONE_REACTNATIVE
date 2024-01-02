@@ -1,14 +1,24 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Map from '../components/Map';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NavigateCard from '../components/NavigateCard';
 import RideOptionsCard from '../components/RideOptionsCard';
+import { Icon } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 
 const MapScreen = () => {
   const Stack = createNativeStackNavigator();
+  const navigation = useNavigation();
+
   return (
     <View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('HomeScreen')}
+        style={styles.touchable}
+      >
+        <Icon name="menu" />
+      </TouchableOpacity>
       <View style={styles.containerOne}>
         <Map />
       </View>
@@ -42,5 +52,14 @@ const styles = StyleSheet.create({
   },
   containerTwo: {
     height: '50%',
+  },
+  touchable: {
+    backgroundColor: '#D5DBDB',
+    position: 'absolute',
+    zIndex: 50,
+    top: 32,
+    left: 16,
+    borderRadius: 60,
+    padding: 6,
   },
 });
